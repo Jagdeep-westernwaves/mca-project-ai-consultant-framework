@@ -1,0 +1,22 @@
+{
+  "title": "Management Consulting Problem-Solving Methodologies",
+  "category": "Corporate Optimization Standards",
+  "description": "Standardized, structured frameworks and problem-solving cycles employed by top-tier global consulting firms to analyze, model, and optimize corporate client operations.",
+  "models": [
+    {
+      "name": "MECE Framework",
+      "definition": "Mutually Exclusive, Collectively Exhaustive. A structuring principle that ensures a complex business problem is broken down into non-overlapping sub-problems that cover all possible aspects.",
+      "application": "When building financial risk indices or operations dashboards, MECE ensures all cost categories are mapped without duplicates."
+    },
+    {
+      "name": "Issue Tree Structuring",
+      "definition": "A visual breakdown of a complex business question into component parts, moving from the core 'Why?' down to testable operational hypotheses.",
+      "application": "Utilized by consultants to trace customer churn spikes back to specific variables (e.g. support calls or shipping delays)."
+    },
+    {
+      "name": "Pyramid Principle",
+      "definition": "A communication framework created by Barbara Minto where recommendations are presented first, followed by supporting arguments and granular data points.",
+      "application": "Serves as the structural guideline for our automated Executive Consulting Summary and dynamic board PDF compilers."
+    }
+  ]
+}

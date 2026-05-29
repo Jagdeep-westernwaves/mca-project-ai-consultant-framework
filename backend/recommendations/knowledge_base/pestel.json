@@ -1,0 +1,37 @@
+{
+  "title": "PESTEL Environmental Analysis Framework",
+  "category": "Macro-Environmental Auditing",
+  "description": "An auditing tool analyzing external macro-environmental forces impacting a firm's operational capabilities, regulatory compliance, and market competitiveness.",
+  "dimensions": [
+    {
+      "factor": "Political",
+      "impacts": "Taxation policies, trade tariffs, government stability, and operational regulatory changes.",
+      "strategy": "Engage in multi-jurisdictional compliance modeling and build tax-efficient corporate supply chains."
+    },
+    {
+      "factor": "Economic",
+      "impacts": "Inflation rates, interest rate fluctuations, foreign exchange volatility, and consumer disposable income indices.",
+      "strategy": "Hedge exchange exposures, secure long-term fixed financing rates, and adjust price elasticity points."
+    },
+    {
+      "factor": "Social",
+      "impacts": "Demographic trends, consumer spending patterns, career attitudes, and buyer ethical preferences.",
+      "strategy": "Align brand values with dynamic consumer ethics and customize demographic-specific product versions."
+    },
+    {
+      "factor": "Technological",
+      "impacts": "Emerging AI automation, cloud computing scalability, data encryption standards, and digital communication methods.",
+      "strategy": "Accelerate proprietary ML IP creation, implement state-of-the-art security, and automate operational workflows."
+    },
+    {
+      "factor": "Environmental",
+      "impacts": "Carbon footprint mandates, resource scarcity, green compliance targets, and sustainable sourcing requirements.",
+      "strategy": "Formulate strict ESG auditing scorecards and establish resource-efficient logistics models."
+    },
+    {
+      "factor": "Legal",
+      "impacts": "Labor standards, consumer privacy rights (GDPR/CCPA), intellectual property patents, and antitrust regulations.",
+      "strategy": "Consult compliance specialists, enforce strict data privacy, and aggressively patent proprietary innovations."
+    }
+  ]
+}

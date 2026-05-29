@@ -1,0 +1,27 @@
+{
+  "title": "SWOT Analysis Framework",
+  "category": "Strategic Auditing & Planning",
+  "description": "A classic corporate diagnostic framework evaluating a company's internal strengths and weaknesses alongside external opportunities and threats.",
+  "quadrants": [
+    {
+      "name": "Strengths (Internal)",
+      "metrics": "High operating profit margin, strong brand equity, patented technology assets, low merchant attrition rates.",
+      "action": "Consolidate and leverage these competitive advantages to cross-sell additional strategic services."
+    },
+    {
+      "name": "Weaknesses (Internal)",
+      "metrics": "High operational delay periods, excessive administrative overhead, unoptimized debt structure, low current liquidity.",
+      "action": "Implement zero-based budgets, streamline logistical supply chains, and reduce expensive short-term leverage."
+    },
+    {
+      "name": "Opportunities (External)",
+      "metrics": "New geographic market niches, emerging predictive automation, changing price elasticities, scaling online portals.",
+      "action": "Allocate core resources and capture rapid growth loops before competitors establish presence."
+    },
+    {
+      "name": "Threats (External)",
+      "metrics": "Aggressive competitor price cuts, credit market contractions, rising logistics disruptions, sudden compliance revisions.",
+      "action": "Hedge market risks, draft strict SLA contracts, and establish contingency capital credit lines."
+    }
+  ]
+}

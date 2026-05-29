@@ -1,0 +1,27 @@
+{
+  "title": "Corporate Risk & Solvency Framework",
+  "category": "Financial Controls & Risk Management",
+  "description": "A comprehensive controls framework evaluating systemic organizational risks across liquidity, debt structures, and operational margins.",
+  "metrics": [
+    {
+      "metric": "Debt-to-Equity Ratio (Leverage)",
+      "benchmark": "Ideal value < 1.2. Ratios exceeding 2.0 signal excessive insolvency risk.",
+      "mitigation": "Refinance expensive high-interest short-term notes into long-term fixed bonds, and redirect excess operating cash flows to de-leverage."
+    },
+    {
+      "metric": "Current Ratio (Liquidity)",
+      "benchmark": "Ideal value >= 1.5. Ratios below 1.0 indicate severe near-term working capital shortfalls.",
+      "mitigation": "Enforce tight accounts receivable timelines (target collections under 30 days) and set up revolving backup credit lines."
+    },
+    {
+      "metric": "Operating Profit Margin (Profitability)",
+      "benchmark": "Ideal value >= 10%. Margins under 2% indicate extreme vulnerability to pricing shocks.",
+      "mitigation": "Conduct a strict zero-based budgeting overhaul and transition toward high-margin recurring license services."
+    },
+    {
+      "metric": "Cash Flow Growth Rate (Solvency)",
+      "benchmark": "Ideal value >= 5% growth. Negative values signal rapid operational cash bleed.",
+      "mitigation": "Halt non-essential capital expenditures and optimize working capital allocations."
+    }
+  ]
+}

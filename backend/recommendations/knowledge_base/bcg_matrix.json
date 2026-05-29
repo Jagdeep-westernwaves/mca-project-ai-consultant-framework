@@ -1,0 +1,35 @@
+{
+  "title": "BCG Growth-Share Matrix",
+  "category": "Corporate Portfolio Planning",
+  "description": "Developed by the Boston Consulting Group, this model helps corporations analyze their business units or product lines based on their relative market share and market growth rate.",
+  "quadrants": [
+    {
+      "name": "Stars",
+      "market_growth": "High",
+      "market_share": "High",
+      "description": "Products showing excellent growth and strong competitive position. Require aggressive investment to maintain leadership.",
+      "strategy": "Inject expansion capital, focus on user onboarding, and protect competitive advantages."
+    },
+    {
+      "name": "Cash Cows",
+      "market_growth": "Low",
+      "market_share": "High",
+      "description": "Established products yielding high cash flows with minimal growth potential. Serves as capital engines for the firm.",
+      "strategy": "Harvest profits, optimize operational margins, and reallocate excess liquidity to Stars."
+    },
+    {
+      "name": "Question Marks",
+      "market_growth": "High",
+      "market_share": "Low",
+      "description": "Rapidly growing markets where the firm has weak presence. High risk with high upside potential.",
+      "strategy": "Perform diagnostic testing. Re-invest aggressively to transform them into Stars, or divest if competitive barriers are too high."
+    },
+    {
+      "name": "Dogs",
+      "market_growth": "Low",
+      "market_share": "Low",
+      "description": "Low growth, low market share products that consume capital and generate minimal margins.",
+      "strategy": "Divest quickly, run zero-based cost reductions, or phase out services to release resources."
+    }
+  ]
+}

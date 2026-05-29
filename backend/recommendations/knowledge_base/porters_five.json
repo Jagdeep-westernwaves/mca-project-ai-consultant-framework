@@ -1,0 +1,32 @@
+{
+  "title": "Porter's Five Forces Framework",
+  "category": "Strategic Industry Analysis",
+  "description": "A powerful model developed by Michael E. Porter to analyze an industry's competitive intensity and attractiveness. It helps corporate executives understand the factors driving market profitability.",
+  "components": [
+    {
+      "name": "Threat of New Entrants",
+      "impact": "High when barriers to entry (capital cost, brand equity, proprietary tech) are low.",
+      "strategy": "Establish high customer switching costs, secure economies of scale, and build proprietary technology patents."
+    },
+    {
+      "name": "Bargaining Power of Suppliers",
+      "impact": "High when supplier market is consolidated and switching suppliers is highly expensive.",
+      "strategy": "Diversify supplier channels, develop backward integration pipelines, or standardized raw ingredients."
+    },
+    {
+      "name": "Bargaining Power of Buyers",
+      "impact": "High when buyers have abundant choices, low switching costs, or buy in extremely large bulk volumes.",
+      "strategy": "Build premium brand loyalty, design customized client integrations, and target differentiated market niches."
+    },
+    {
+      "name": "Threat of Substitute Products",
+      "impact": "High when external alternatives offer superior price-to-performance ratios.",
+      "strategy": "Constantly invest in R&D, implement loyalty rewards, and tightly align product utility with customer workflow needs."
+    },
+    {
+      "name": "Industry Rivalry Intensity",
+      "impact": "High when numerous equal-sized competitors engage in aggressive price-cutting wars.",
+      "strategy": "Avoid generic pricing models. Pursue clear product differentiation, niche consolidation, or cost leadership operations."
+    }
+  ]
+}
