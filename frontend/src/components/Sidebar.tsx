@@ -1,10 +1,9 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '../store';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store';
 import { logout } from '../store/authSlice';
-import { useThemeContext } from '../context/ThemeContext';
-import { Box, Typography, Button, IconButton, Chip } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import {
   DashboardOutlined,
   AnalyticsOutlined,
@@ -13,16 +12,12 @@ import {
   DescriptionOutlined,
   SettingsOutlined,
   PersonOutline,
-  LogoutOutlined,
-  LightModeOutlined,
-  DarkModeOutlined
+  LogoutOutlined
 } from '@mui/icons-material';
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { user } = useSelector((state: RootState) => state.auth);
-  const { mode, toggleTheme } = useThemeContext();
 
   const handleLogout = () => {
     dispatch(logout());
@@ -41,34 +36,26 @@ const Sidebar: React.FC = () => {
 
   return (
     <Box
-      width={280}
-      minHeight="100vh"
-      p={3}
-      display="flex"
+      width={260}
+      p={2.5}
+      display={{ xs: 'none', md: 'flex' }}
       flexDirection="column"
       justifyContent="space-between"
-      borderRight="1px solid var(--border-glass)"
-      bgcolor="var(--bg-glass)"
-      style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', zIndex: 10 }}
+      className="glass-panel"
+      style={{
+        height: 'calc(100vh - 100px)',
+        position: 'sticky',
+        top: '84px',
+        border: '1px solid var(--border-glass)',
+      }}
     >
-      {/* Brand Header */}
       <Box>
-        <Box display="flex" alignItems="center" justifyContent="space-between" mb={4}>
-          <Box display="flex" flexDirection="column">
-            <Typography variant="h6" fontWeight={800} letterSpacing={-0.5} color="var(--primary-color)">
-              AIMCF
-            </Typography>
-            <Typography variant="caption" color="var(--text-muted)" fontWeight={600}>
-              Consulting Engine v1.0
-            </Typography>
-          </Box>
-          <IconButton onClick={toggleTheme} color="primary" size="small" style={{ border: '1px solid var(--border-glass)' }}>
-            {mode === 'light' ? <DarkModeOutlined /> : <LightModeOutlined />}
-          </IconButton>
-        </Box>
-
+        <Typography variant="overline" fontWeight={700} color="var(--text-muted)" mb={2} display="block">
+          MAIN MENU
+        </Typography>
+        
         {/* Navigation links */}
-        <Box display="flex" flexDirection="column" gap={0.5}>
+        <Box display="flex" flexDirection="column" gap={1}>
           {navItems.map((item) => (
             <NavLink
               key={item.label}
@@ -76,19 +63,18 @@ const Sidebar: React.FC = () => {
               style={({ isActive }) => ({
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
+                gap: '14px',
                 padding: '12px 16px',
-                borderRadius: '8px',
+                borderRadius: '12px',
                 textDecoration: 'none',
-                color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
+                color: isActive ? 'var(--primary-color)' : 'var(--text-secondary)',
                 backgroundColor: isActive ? 'var(--primary-glow)' : 'transparent',
-                border: isActive ? '1px solid var(--primary-color)' : '1px solid transparent',
-                fontWeight: isActive ? 600 : 500,
+                fontWeight: isActive ? 700 : 500,
                 transition: 'all 0.2s ease',
               })}
             >
-              {item.icon}
-              <Typography variant="body2" style={{ fontFamily: 'Inter' }}>
+              {React.cloneElement(item.icon, { fontSize: 'small', style: { color: 'inherit' } })}
+              <Typography variant="body2" style={{ fontFamily: 'Plus Jakarta Sans', fontSize: '0.9rem', color: 'inherit' }}>
                 {item.label}
               </Typography>
             </NavLink>
@@ -96,44 +82,24 @@ const Sidebar: React.FC = () => {
         </Box>
       </Box>
 
-      {/* User profile card & Logout */}
-      <Box display="flex" flexDirection="column" gap={2} pt={3} style={{ borderTop: '1px solid var(--border-glass)' }}>
-        {user && (
-          <Box display="flex" alignItems="center" gap={1.5}>
-            <Box
-              width={40}
-              height={40}
-              borderRadius="50%"
-              bgcolor="var(--primary-color)"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              color="#fff"
-              fontWeight={700}
-            >
-              {user.first_name[0] || user.username[0].toUpperCase()}
-            </Box>
-            <Box overflow="hidden">
-              <Typography variant="subtitle2" fontWeight={700} noWrap>
-                {user.first_name} {user.last_name}
-              </Typography>
-              <Chip
-                label={user.role.toUpperCase()}
-                size="small"
-                color={user.role === 'admin' ? 'secondary' : user.role === 'consultant' ? 'primary' : 'default'}
-                style={{ fontSize: 9, height: 18, marginTop: 4, fontWeight: 700 }}
-              />
-            </Box>
-          </Box>
-        )}
+      {/* Logout */}
+      <Box display="flex" flexDirection="column" pt={3}>
         <Button
           variant="outlined"
           color="error"
           fullWidth
           startIcon={<LogoutOutlined />}
           onClick={handleLogout}
-          size="small"
-          style={{ borderRadius: 8, borderColor: 'rgba(239, 68, 68, 0.2)' }}
+          size="medium"
+          style={{ 
+            borderRadius: 12, 
+            borderColor: 'var(--border-glass)',
+            color: 'var(--text-secondary)',
+            textTransform: 'none',
+            fontWeight: 600,
+            justifyContent: 'flex-start',
+            padding: '10px 16px'
+          }}
         >
           Logout
         </Button>

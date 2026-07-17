@@ -132,7 +132,7 @@ const AIChatAssistant: React.FC = () => {
                       whiteSpace: 'pre-wrap', 
                       fontSize: 12.5,
                       lineHeight: 1.4,
-                      fontFamily: 'Inter' 
+                      fontFamily: 'var(--font-primary)' 
                     }}
                   >
                     {msg.text}
@@ -166,7 +166,7 @@ const AIChatAssistant: React.FC = () => {
                   style: {
                     borderRadius: 10,
                     fontSize: 12.5,
-                    fontFamily: 'Inter',
+                    fontFamily: 'var(--font-primary)',
                     backgroundColor: 'rgba(255,255,255,0.03)'
                   }
                 }}

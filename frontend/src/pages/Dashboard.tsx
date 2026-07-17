@@ -10,19 +10,13 @@ import {
   runRiskAnalysis,
   fetchStrategicAdvice
 } from '../store/consultingSlice';
-import { Grid, Card, CardContent, Typography, Box, List, ListItem, ListItemText, Divider, Chip, LinearProgress } from '@mui/material';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Typography, Box, Divider, Chip } from '@mui/material';
+import { AreaChart, Area, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import {
   TrendingUpOutlined,
   PeopleAltOutlined,
   BusinessCenterOutlined,
-  GppMaybeOutlined,
-  NotificationsActiveOutlined,
-  FavoriteBorderOutlined,
-  LightbulbOutlined,
-  CheckCircleOutline,
-  ErrorOutline,
-  StarOutline
+  GppMaybeOutlined
 } from '@mui/icons-material';
 
 const Dashboard: React.FC = () => {
@@ -71,32 +65,6 @@ const Dashboard: React.FC = () => {
   // Resolve strategic advice fallback values
   const healthScore = strategicAdvice?.health_score?.score || 72.4;
   const healthClass = strategicAdvice?.health_score?.classification || 'Good';
-  const healthExplanation = strategicAdvice?.health_score?.explanation || 
-    'Your corporate structures exhibit stable cash flows and resilient buyer perception.';
-  const swot = strategicAdvice?.swot || {
-    strengths: [
-      "Established core operational revenue base.",
-      "Patented technology assets driving unique client integrations."
-    ],
-    weaknesses: [
-      "Operational delays in shipping schedules averaging 2 days.",
-      "Administrative overhead spending limits R&D resources."
-    ],
-    opportunities: [
-      "Deploy CRM telemetry workflows to identify churn hazards early.",
-      "Cross-sell premium predictive analytics modules to established accounts."
-    ],
-    threats: [
-      "Pricing elasticities indicate high attrition risks under broadly rising prices.",
-      "Competitor expansion in cloud self-serve dashboarding tools."
-    ]
-  };
-  const execSummary = strategicAdvice?.executive_summary || 
-    "Comprehensive diagnostics indicate stable commercial operations. Management is advised to prioritize reducing supply delays and paying down high-interest credit lines.";
-  const recommendations = strategicAdvice?.recommendations || [
-    { category: 'Growth', title: 'Market Share Consolidation', description: 'Cross-sell analytical services to mature corporate accounts.', impact: 'Medium', difficulty: 'Low' },
-    { category: 'Finance', title: 'Capital Deployment Rebalance', description: 'Re-allocate administrative budget to invest in proprietary AI IP assets.', impact: 'High', difficulty: 'Medium' }
-  ];
 
   const kpis = [
     { label: 'Active Clients', value: totalClients, icon: <PeopleAltOutlined color="primary" />, desc: 'Corporate accounts assigned' },
@@ -117,378 +85,112 @@ const Dashboard: React.FC = () => {
 
   return (
     <Box className="animate-fade-in" pb={6}>
-      {/* Top Welcome & Health Summary Bar */}
-      <Box mb={4} p={3} className="glass-card" display="flex" flexDirection={{ xs: 'column', md: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', md: 'center' }} gap={2}>
-        <Box>
-          <Typography variant="h4" fontWeight={800} style={{ letterSpacing: -1, fontFamily: 'Inter' }}>
-            Corporate Consulting Hub
-          </Typography>
-          <Typography variant="subtitle2" color="var(--text-secondary)">
-            Welcome back, {user?.first_name || 'Advisor'}. Here is your real-time strategic alignment audit.
-          </Typography>
-        </Box>
-        <Box display="flex" alignItems="center" gap={2}>
-          <Box textAlign="right" display={{ xs: 'none', sm: 'block' }}>
-            <Typography variant="caption" color="var(--text-muted)" fontWeight={700}>
-              BUSINESS HEALTH STATUS
+      <Box className="bento-grid">
+        
+        {/* HERO TILE */}
+        <Box className="bento-tile bento-hero" p={4} display="flex" flexDirection={{ xs: 'column', md: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', md: 'center' }} gap={2}>
+          <Box>
+            <Typography variant="h3" fontWeight={900} className="neon-text" mb={1} style={{ letterSpacing: -1 }}>
+              SYSTEM TERMINAL
             </Typography>
-            <Typography variant="h6" fontWeight={800} style={{ color: getHealthColor(healthClass), fontFamily: 'Inter' }}>
-              {healthClass} Rating
+            <Typography variant="body1" color="var(--text-secondary)">
+              ID: {user?.first_name || 'GUEST_01'} | STATUS: SECURE_LINK
             </Typography>
           </Box>
-          <Box 
-            p={2} 
-            display="flex" 
-            flexDirection="column" 
-            justifyContent="center" 
-            alignItems="center" 
-            borderRadius="50%" 
-            width={72} 
-            height={72} 
-            style={{ 
-              border: `4px solid ${getHealthColor(healthClass)}`, 
-              backgroundColor: 'rgba(255,255,255,0.03)',
-              boxShadow: `0 0 16px 0 ${getHealthColor(healthClass)}33` 
-            }}
-          >
-            <Typography variant="subtitle1" fontWeight={900} style={{ color: getHealthColor(healthClass), fontFamily: 'Inter', lineHeight: 1 }}>
-              {Math.round(healthScore)}%
-            </Typography>
+          <Box textAlign={{ xs: 'left', md: 'right' }}>
+             <Typography variant="h2" fontWeight={900} style={{ color: getHealthColor(healthClass), lineHeight: 1 }}>
+               {Math.round(healthScore)}<span style={{ fontSize: '0.5em', opacity: 0.8 }}>%</span>
+             </Typography>
+             <Typography variant="overline" style={{ color: getHealthColor(healthClass), letterSpacing: 3, fontWeight: 800 }}>
+               {healthClass} SOLVENCY
+             </Typography>
           </Box>
         </Box>
-      </Box>
 
-      {/* KPI Grid */}
-      <Grid container spacing={3} mb={4}>
+        {/* KPI TILES */}
         {kpis.map((kpi) => (
-          <Grid item xs={12} sm={6} md={3} key={kpi.label}>
-            <Card className="glass-card-hover" style={{ height: '100%' }}>
-              <CardContent>
-                <Box display="flex" justifyContent="space-between" alignItems="flex-start" mb={2}>
-                  <Typography variant="overline" color="var(--text-muted)" fontWeight={700}>
-                    {kpi.label}
-                  </Typography>
-                  <Box p={1} bgcolor="rgba(59, 130, 246, 0.05)" borderRadius="10px">
-                    {kpi.icon}
-                  </Box>
-                </Box>
-                <Typography variant="h4" fontWeight={800} mb={0.5} style={{ fontFamily: 'Inter' }}>
-                  {kpi.value}
+          <Box key={kpi.label} className="bento-tile bento-kpi" p={3}>
+             <Box display="flex" justifyContent="space-between" mb={2}>
+                <Typography variant="overline" color="var(--text-muted)" fontWeight={800} style={{ letterSpacing: 1 }}>{kpi.label}</Typography>
+                {kpi.icon}
+             </Box>
+             <Typography variant="h3" fontWeight={900} mb={1}>{kpi.value}</Typography>
+             <Typography variant="caption" color="var(--text-secondary)">{kpi.desc}</Typography>
+          </Box>
+        ))}
+
+        {/* CHART TILE */}
+        <Box className="bento-tile bento-chart">
+          <Box p={4} position="absolute" zIndex={10}>
+            <Typography variant="h5" fontWeight={900} mb={0.5}>PREDICTIVE TRAJECTORY</Typography>
+            <Typography variant="body2" color="var(--text-secondary)" mb={2}>
+              Combined historical and regression forecast mapping
+            </Typography>
+            <Chip label="LINEAR_REGRESSION_ACTIVE" size="small" style={{ backgroundColor: 'var(--primary-glow)', color: '#3b82f6', fontWeight: 800, fontSize: 10, letterSpacing: 1 }}/>
+          </Box>
+          <Box className="full-bleed-chart" pt={10}>
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={chartData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.6}/>
+                    <stop offset="100%" stopColor="#3b82f6" stopOpacity={0.0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border-glass)" vertical={false} />
+                <Tooltip 
+                  contentStyle={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-glass)', borderRadius: 12, color: 'var(--text-primary)', fontWeight: 700 }}
+                  itemStyle={{ color: '#3b82f6' }}
+                />
+                <Area type="monotone" dataKey="sales" stroke="#3b82f6" strokeWidth={3} fill="url(#colorSales)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </Box>
+        </Box>
+
+        {/* SIDEBAR TILE */}
+        <Box className="bento-tile bento-sidebar" p={4} style={{ overflowY: 'auto' }}>
+          <Box mb={4}>
+            <Typography variant="h6" fontWeight={900} mb={2} style={{ letterSpacing: 1 }}>THREAT MATRIX</Typography>
+            <Box display="flex" flexWrap="wrap" gap={1}>
+              {churnRate > 5.0 && <Chip label="HIGH_CHURN_RISK" color="error" size="small" style={{ fontWeight: 800, fontSize: 10, borderRadius: 6 }} />}
+              {growthRate.includes('-%') && <Chip label="CONTRACTION_ALERT" color="error" size="small" style={{ fontWeight: 800, fontSize: 10, borderRadius: 6 }} />}
+              <Chip label="ELASTICITY_FRICTION" color="warning" size="small" style={{ fontWeight: 800, fontSize: 10, borderRadius: 6 }} />
+              <Chip label="SUPPLY_BOTTLENECK" color="warning" size="small" style={{ fontWeight: 800, fontSize: 10, borderRadius: 6 }} />
+            </Box>
+          </Box>
+
+          <Divider style={{ borderColor: 'var(--border-glass)', marginBottom: 24 }} />
+
+          <Box mb={4}>
+            <Typography variant="h6" fontWeight={900} mb={2} style={{ letterSpacing: 1 }}>EXPANSION VECTORS</Typography>
+            <Box display="flex" flexWrap="wrap" gap={1}>
+              <Chip label="CROSS_SELLING" style={{ backgroundColor: 'rgba(16,185,129,0.1)', color: '#10b981', fontWeight: 800, fontSize: 10, borderRadius: 6 }} />
+              <Chip label="CRM_TELEMETRY" style={{ backgroundColor: 'var(--primary-glow)', color: '#3b82f6', fontWeight: 800, fontSize: 10, borderRadius: 6 }} />
+            </Box>
+          </Box>
+
+          <Divider style={{ borderColor: 'var(--border-glass)', marginBottom: 24 }} />
+
+          <Box>
+            <Typography variant="h6" fontWeight={900} mb={2} style={{ letterSpacing: 1 }}>SYSTEM LOGS</Typography>
+            {notifications.slice(0, 3).map((notif) => (
+              <Box key={notif.id} mb={2}>
+                <Typography variant="subtitle2" fontWeight={800} color="var(--text-primary)">
+                  {notif.title}
                 </Typography>
                 <Typography variant="caption" color="var(--text-secondary)">
-                  {kpi.desc}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-
-      {/* Main 2-Column Corporate Audit Pane */}
-      <Grid container spacing={3}>
-        
-        {/* Left Column: Analytics Chart, SWOT Matrix, Recommendations */}
-        <Grid item xs={12} lg={8} display="flex" flexDirection="column" gap={3}>
-          
-          {/* Sales trends charts */}
-          <Card>
-            <CardContent>
-              <Box mb={3} display="flex" justifyContent="space-between" alignItems="center">
-                <Box>
-                  <Typography variant="h6" fontWeight={700}>
-                    Sales Trend & Predictive Forecast
-                  </Typography>
-                  <Typography variant="caption" color="var(--text-secondary)">
-                    Combined historical and machine-learned regression curves (fitted via scikit-learn)
-                  </Typography>
-                </Box>
-                <Chip label="LinearRegression Model" size="small" color="primary" variant="outlined" style={{ fontSize: 10, fontWeight: 700 }} />
-              </Box>
-              <Box height={280}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                    <defs>
-                      <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.4}/>
-                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.01}/>
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border-glass)" />
-                    <XAxis dataKey="month" stroke="var(--text-muted)" tickFormatter={(m) => `Month ${m}`} style={{ fontSize: 11, fontFamily: 'Inter' }} />
-                    <YAxis stroke="var(--text-muted)" tickFormatter={(val) => `$${val/1000}k`} style={{ fontSize: 11, fontFamily: 'Inter' }} />
-                    <Tooltip 
-                      contentStyle={{ 
-                        backgroundColor: 'var(--bg-secondary)', 
-                        borderColor: 'var(--border-glass)',
-                        borderRadius: 12,
-                        fontFamily: 'Inter'
-                      }} 
-                    />
-                    <Area type="monotone" dataKey="sales" stroke="#3b82f6" strokeWidth={2.5} fillOpacity={1} fill="url(#colorSales)" />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </Box>
-            </CardContent>
-          </Card>
-
-          {/* SWOT ANALYSIS MATRIX WIDGET */}
-          <Card>
-            <CardContent>
-              <Box mb={2.5} display="flex" justifyContent="space-between" alignItems="center">
-                <Box display="flex" alignItems="center" gap={1}>
-                  <StarOutline color="primary" />
-                  <Typography variant="h6" fontWeight={700}>
-                    Dynamic SWOT Diagnostics Matrix
-                  </Typography>
-                </Box>
-                <Chip label="Automated KPI Alignment" size="small" style={{ fontSize: 10, fontWeight: 700, backgroundColor: 'rgba(59,130,246,0.08)', color: '#3b82f6' }} />
-              </Box>
-              <Divider style={{ borderColor: 'var(--border-glass)', marginBottom: 20 }} />
-
-              <Grid container spacing={2}>
-                {/* Strengths */}
-                <Grid item xs={12} sm={6}>
-                  <Box p={2.5} borderRadius="12px" bgcolor="rgba(16,185,129,0.03)" style={{ borderLeft: '4px solid #10b981', height: '100%' }}>
-                    <Typography variant="subtitle2" fontWeight={800} color="#10b981" mb={1} display="flex" alignItems="center" gap={0.5}>
-                      💪 Strengths (Internal)
-                    </Typography>
-                    <ul style={{ paddingLeft: 18, margin: 0 }}>
-                      {swot.strengths.map((str, idx) => (
-                        <li key={idx} style={{ marginBottom: 6 }}><Typography variant="body2" color="var(--text-secondary)">{str}</Typography></li>
-                      ))}
-                    </ul>
-                  </Box>
-                </Grid>
-
-                {/* Weaknesses */}
-                <Grid item xs={12} sm={6}>
-                  <Box p={2.5} borderRadius="12px" bgcolor="rgba(239,68,68,0.03)" style={{ borderLeft: '4px solid #ef4444', height: '100%' }}>
-                    <Typography variant="subtitle2" fontWeight={800} color="#ef4444" mb={1} display="flex" alignItems="center" gap={0.5}>
-                      ⚠️ Weaknesses (Internal)
-                    </Typography>
-                    <ul style={{ paddingLeft: 18, margin: 0 }}>
-                      {swot.weaknesses.map((wk, idx) => (
-                        <li key={idx} style={{ marginBottom: 6 }}><Typography variant="body2" color="var(--text-secondary)">{wk}</Typography></li>
-                      ))}
-                    </ul>
-                  </Box>
-                </Grid>
-
-                {/* Opportunities */}
-                <Grid item xs={12} sm={6}>
-                  <Box p={2.5} borderRadius="12px" bgcolor="rgba(59,130,246,0.03)" style={{ borderLeft: '4px solid #3b82f6', height: '100%' }}>
-                    <Typography variant="subtitle2" fontWeight={800} color="#3b82f6" mb={1} display="flex" alignItems="center" gap={0.5}>
-                      💡 Opportunities (External)
-                    </Typography>
-                    <ul style={{ paddingLeft: 18, margin: 0 }}>
-                      {swot.opportunities.map((op, idx) => (
-                        <li key={idx} style={{ marginBottom: 6 }}><Typography variant="body2" color="var(--text-secondary)">{op}</Typography></li>
-                      ))}
-                    </ul>
-                  </Box>
-                </Grid>
-
-                {/* Threats */}
-                <Grid item xs={12} sm={6}>
-                  <Box p={2.5} borderRadius="12px" bgcolor="rgba(245,158,11,0.03)" style={{ borderLeft: '4px solid #f59e0b', height: '100%' }}>
-                    <Typography variant="subtitle2" fontWeight={800} color="#f59e0b" mb={1} display="flex" alignItems="center" gap={0.5}>
-                      ⚡ Threats (External)
-                    </Typography>
-                    <ul style={{ paddingLeft: 18, margin: 0 }}>
-                      {swot.threats.map((th, idx) => (
-                        <li key={idx} style={{ marginBottom: 6 }}><Typography variant="body2" color="var(--text-secondary)">{th}</Typography></li>
-                      ))}
-                    </ul>
-                  </Box>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-
-          {/* DYNAMIC RECOMMENDATIONS WIDGET */}
-          <Card>
-            <CardContent>
-              <Box mb={2.5} display="flex" alignItems="center" gap={1}>
-                <LightbulbOutlined color="primary" />
-                <Typography variant="h6" fontWeight={700}>
-                  Strategic Consulting Recommendation Cards
+                  {notif.message}
                 </Typography>
               </Box>
-              <Divider style={{ borderColor: 'var(--border-glass)', marginBottom: 20 }} />
+            ))}
+            {notifications.length === 0 && (
+              <Typography variant="body2" color="var(--text-muted)">AWAITING LOGS...</Typography>
+            )}
+          </Box>
+        </Box>
 
-              <Grid container spacing={2}>
-                {recommendations.map((rec: any, idx: number) => (
-                  <Grid item xs={12} sm={6} key={idx}>
-                    <Card style={{ backgroundColor: 'rgba(255,255,255,0.01)', border: '1px solid var(--border-glass)', height: '100%' }}>
-                      <CardContent style={{ padding: 18 }}>
-                        <Box display="flex" justifyContent="space-between" alignItems="center" mb={1.5}>
-                          <Chip label={rec.category} size="small" color="primary" style={{ fontSize: 10, fontWeight: 700 }} />
-                          <Box display="flex" gap={1}>
-                            <Chip label={`Impact: ${rec.impact}`} size="small" variant="outlined" color="success" style={{ fontSize: 9, height: 18 }} />
-                            <Chip label={`Diff: ${rec.difficulty}`} size="small" variant="outlined" style={{ fontSize: 9, height: 18, borderColor: 'var(--border-glass)' }} />
-                          </Box>
-                        </Box>
-                        <Typography variant="subtitle2" fontWeight={800} mb={1}>
-                          {rec.title}
-                        </Typography>
-                        <Typography variant="body2" color="var(--text-secondary)" style={{ fontSize: 12, lineHeight: 1.4 }}>
-                          {rec.description}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                ))}
-              </Grid>
-            </CardContent>
-          </Card>
-
-        </Grid>
-
-        {/* Right Column: Health Score Breakdown, Summary Narrative, Alerts, Risks/Opportunities */}
-        <Grid item xs={12} lg={4} display="flex" flexDirection="column" gap={3}>
-          
-          {/* BUSINESS HEALTH SCORE DETAILS CARD */}
-          <Card>
-            <CardContent>
-              <Box mb={2} display="flex" alignItems="center" gap={1}>
-                <FavoriteBorderOutlined color="primary" />
-                <Typography variant="h6" fontWeight={700}>
-                  Business Health Assessment
-                </Typography>
-              </Box>
-              <Divider style={{ borderColor: 'var(--border-glass)', marginBottom: 15 }} />
-
-              {/* Progress meters */}
-              <Box mb={3}>
-                <Box display="flex" justifyContent="space-between" mb={0.5}>
-                  <Typography variant="body2" fontWeight={700} color="var(--text-primary)">
-                    Aggregated Health Score
-                  </Typography>
-                  <Typography variant="body2" fontWeight={800} style={{ color: getHealthColor(healthClass) }}>
-                    {healthScore}%
-                  </Typography>
-                </Box>
-                <LinearProgress 
-                  variant="determinate" 
-                  value={healthScore} 
-                  style={{ 
-                    height: 8, 
-                    borderRadius: 4, 
-                    backgroundColor: 'rgba(255,255,255,0.05)',
-                    boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.2)'
-                  }} 
-                  sx={{
-                    '& .MuiLinearProgress-bar': {
-                      backgroundColor: getHealthColor(healthClass),
-                      borderRadius: 4
-                    }
-                  }}
-                />
-              </Box>
-
-              {/* Classification explain */}
-              <Box p={2} borderRadius="10px" bgcolor="rgba(255,255,255,0.02)" style={{ border: '1px dashed var(--border-glass)' }} mb={2.5}>
-                <Typography variant="subtitle2" fontWeight={800} style={{ color: getHealthColor(healthClass) }} mb={0.5}>
-                  {healthClass} Solvency Classification
-                </Typography>
-                <Typography variant="caption" color="var(--text-secondary)" style={{ fontSize: 11.5, lineHeight: 1.4, display: 'block' }}>
-                  {healthExplanation}
-                </Typography>
-              </Box>
-
-              {/* Dynamic narrative */}
-              <Box>
-                <Typography variant="overline" color="var(--text-muted)" fontWeight={700} display="block" mb={1}>
-                  EXECUTIVE AUDIT SUMMARY
-                </Typography>
-                <Typography variant="body2" color="var(--text-secondary)" style={{ fontSize: 12.5, lineHeight: 1.5, fontFamily: 'Inter' }}>
-                  {execSummary}
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-
-          {/* RISK & OPPORTUNITY PILLS */}
-          <Card>
-            <CardContent>
-              <Typography variant="h6" fontWeight={700} mb={1.5}>
-                Strategic Signals Monitor
-              </Typography>
-              <Divider style={{ borderColor: 'var(--border-glass)', marginBottom: 15 }} />
-
-              {/* Risks matrix */}
-              <Box mb={2.5}>
-                <Typography variant="caption" color="var(--text-muted)" fontWeight={700} display="block" mb={1}>
-                  TOP THREAT SIGNALS
-                </Typography>
-                <Box display="flex" flexWrap="wrap" gap={1}>
-                  {churnRate > 5.0 && <Chip icon={<ErrorOutline style={{ fontSize: 13 }} />} label="⚠️ High Churn Risk Index" color="error" size="small" variant="outlined" style={{ fontSize: 10 }} />}
-                  {growthRate.includes('-%') && <Chip icon={<ErrorOutline style={{ fontSize: 13 }} />} label="⚠️ Sales Contraction Alert" color="error" size="small" variant="outlined" style={{ fontSize: 10 }} />}
-                  <Chip label="⚡ Price Elasticity Friction" color="warning" size="small" variant="outlined" style={{ fontSize: 10 }} />
-                  <Chip label="⚡ Supply Chain bottleneck" color="warning" size="small" variant="outlined" style={{ fontSize: 10 }} />
-                </Box>
-              </Box>
-
-              {/* Opportunities matrix */}
-              <Box>
-                <Typography variant="caption" color="var(--text-muted)" fontWeight={700} display="block" mb={1}>
-                  TOP EXPANSION VECTORS
-                </Typography>
-                <Box display="flex" flexWrap="wrap" gap={1}>
-                  <Chip icon={<CheckCircleOutline style={{ fontSize: 13 }} />} label="💡 Premium Cross-Selling" color="success" size="small" variant="outlined" style={{ fontSize: 10 }} />
-                  <Chip label="💡 CRM Telemetry workflow" color="primary" size="small" variant="outlined" style={{ fontSize: 10 }} />
-                  <Chip label="💡 BCG Star Asset Funding" color="secondary" size="small" variant="outlined" style={{ fontSize: 10 }} />
-                </Box>
-              </Box>
-            </CardContent>
-          </Card>
-
-          {/* AI Insight Alerts Panel */}
-          <Card>
-            <CardContent>
-              <Box mb={2.5} display="flex" alignItems="center" gap={1}>
-                <NotificationsActiveOutlined color="primary" />
-                <Typography variant="h6" fontWeight={700}>
-                  Strategic AI Alerts
-                </Typography>
-              </Box>
-              <Divider style={{ borderColor: 'var(--border-glass)', marginBottom: 15 }} />
-              <List style={{ padding: 0 }}>
-                {notifications.slice(0, 3).map((notif, idx) => (
-                  <React.Fragment key={notif.id}>
-                    <ListItem alignItems="flex-start" style={{ padding: '10px 0' }}>
-                      <ListItemText
-                        primary={
-                          <Typography variant="subtitle2" fontWeight={700} color="var(--text-primary)">
-                            {notif.title}
-                          </Typography>
-                        }
-                        secondary={
-                          <Typography variant="caption" color="var(--text-secondary)" display="block" mt={0.5}>
-                            {notif.message}
-                          </Typography>
-                        }
-                      />
-                    </ListItem>
-                    {idx < Math.min(notifications.length, 3) - 1 && (
-                      <Divider variant="fullWidth" style={{ borderColor: 'var(--border-glass)' }} />
-                    )}
-                  </React.Fragment>
-                ))}
-                {notifications.length === 0 && (
-                  <Box py={4} textAlign="center">
-                    <Typography variant="body2" color="var(--text-muted)">
-                      No pending strategic warnings.
-                    </Typography>
-                  </Box>
-                )}
-              </List>
-            </CardContent>
-          </Card>
-
-        </Grid>
-
-      </Grid>
+      </Box>
     </Box>
   );
 };

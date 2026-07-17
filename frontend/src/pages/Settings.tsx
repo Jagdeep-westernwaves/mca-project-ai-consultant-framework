@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../store';
 import { fetchAuditLogs } from '../store/consultingSlice';
 import {
-  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
-  Typography, Box, Card, CardContent, Divider
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+  Typography, Box, Divider
 } from '@mui/material';
 import { SecurityOutlined } from '@mui/icons-material';
 
@@ -17,71 +17,71 @@ const Settings: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <Box className="animate-fade-in">
-      <Box mb={4}>
-        <Typography variant="h4" fontWeight={800} style={{ letterSpacing: -1, fontFamily: 'Inter' }}>
-          System Security & Audit logs
+    <Box className="animate-fade-in" style={{ padding: '0 24px' }}>
+      <Box mb={4} className="bento-tile" style={{ padding: '24px 32px' }}>
+        <Typography variant="h3" fontWeight={900} className="neon-text" style={{ letterSpacing: -1 }}>
+          SYSTEM SECURITY
         </Typography>
-        <Typography variant="subtitle2" color="var(--text-secondary)">
-          Track all user interactions, model uploads, data clean operations, and strategic forecasting queries.
+        <Typography variant="overline" style={{ color: 'var(--text-secondary)', letterSpacing: 3, fontWeight: 800 }}>
+          AUDIT LOGS & EVENT TRACING
         </Typography>
       </Box>
 
-      <Card>
-        <CardContent>
-          <Box display="flex" alignItems="center" gap={1} mb={2.5}>
-            <SecurityOutlined color="primary" />
-            <Typography variant="h6" fontWeight={700}>
-              Administrative Activity Trail
+      <Box className="bento-grid">
+        <Box className="bento-tile" style={{ gridColumn: 'span 12', padding: 0, overflow: 'hidden' }}>
+          <Box p={3} display="flex" alignItems="center" gap={1.5}>
+            <SecurityOutlined style={{ color: '#ef4444', fontSize: 28 }} />
+            <Typography variant="h6" fontWeight={900} style={{ letterSpacing: 1, textTransform: 'uppercase' }}>
+              ADMINISTRATIVE ACTIVITY TRAIL
             </Typography>
           </Box>
-          <Divider style={{ borderColor: 'var(--border-glass)', marginBottom: 20 }} />
+          <Divider style={{ borderColor: 'var(--border-glass)' }} />
 
-          <TableContainer component={Paper} style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-glass)' }}>
+          <TableContainer style={{ backgroundColor: 'transparent', boxShadow: 'none' }}>
             <Table>
-              <TableHead style={{ backgroundColor: 'rgba(59, 130, 246, 0.03)' }}>
+              <TableHead style={{ backgroundColor: 'var(--bg-primary)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                 <TableRow>
-                  <TableCell style={{ fontFamily: 'Inter', fontWeight: 700 }}>Advisor Name</TableCell>
-                  <TableCell style={{ fontFamily: 'Inter', fontWeight: 700 }}>Role Pillar</TableCell>
-                  <TableCell style={{ fontFamily: 'Inter', fontWeight: 700 }}>Action Tag</TableCell>
-                  <TableCell style={{ fontFamily: 'Inter', fontWeight: 700 }}>Description</TableCell>
-                  <TableCell style={{ fontFamily: 'Inter', fontWeight: 700 }}>IP Address</TableCell>
-                  <TableCell style={{ fontFamily: 'Inter', fontWeight: 700 }}>Timestamp</TableCell>
+                  <TableCell style={{ fontFamily: 'var(--font-primary)', fontWeight: 900, letterSpacing: 1, color: 'var(--text-muted)', borderBottom: 'none' }}>NODE ENTITY</TableCell>
+                  <TableCell style={{ fontFamily: 'var(--font-primary)', fontWeight: 900, letterSpacing: 1, color: 'var(--text-muted)', borderBottom: 'none' }}>ACCESS TIER</TableCell>
+                  <TableCell style={{ fontFamily: 'var(--font-primary)', fontWeight: 900, letterSpacing: 1, color: 'var(--text-muted)', borderBottom: 'none' }}>EVENT TRIGGER</TableCell>
+                  <TableCell style={{ fontFamily: 'var(--font-primary)', fontWeight: 900, letterSpacing: 1, color: 'var(--text-muted)', borderBottom: 'none' }}>PAYLOAD DETAILS</TableCell>
+                  <TableCell style={{ fontFamily: 'var(--font-primary)', fontWeight: 900, letterSpacing: 1, color: 'var(--text-muted)', borderBottom: 'none' }}>IP TRACE</TableCell>
+                  <TableCell style={{ fontFamily: 'var(--font-primary)', fontWeight: 900, letterSpacing: 1, color: 'var(--text-muted)', borderBottom: 'none' }}>SYSTEM CLOCK</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {auditLogs.map((log) => (
-                  <TableRow key={log.id} hover>
-                    <TableCell style={{ fontFamily: 'Inter', fontWeight: 600 }}>{log.username || 'System'}</TableCell>
-                    <TableCell style={{ fontFamily: 'Inter', fontSize: 11, textTransform: 'capitalize' }}>
+                  <TableRow key={log.id} hover style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
+                    <TableCell style={{ fontFamily: 'var(--font-primary)', fontWeight: 800, color: 'var(--text-primary)', borderBottom: 'none' }}>{log.username || 'SYSTEM.CORE'}</TableCell>
+                    <TableCell style={{ fontFamily: 'var(--font-primary)', fontSize: 11, fontWeight: 900, textTransform: 'uppercase', color: 'var(--text-secondary)', borderBottom: 'none' }}>
                       {log.role}
                     </TableCell>
-                    <TableCell style={{ fontFamily: 'Inter' }}>
-                      <Typography variant="caption" fontWeight={700} style={{ color: 'var(--primary-color)' }}>
+                    <TableCell style={{ fontFamily: 'var(--font-primary)', borderBottom: 'none' }}>
+                      <Typography variant="caption" fontWeight={900} style={{ color: '#ef4444', letterSpacing: 1 }}>
                         {log.action}
                       </Typography>
                     </TableCell>
-                    <TableCell style={{ fontFamily: 'Inter', fontSize: 12, color: 'var(--text-secondary)' }}>
+                    <TableCell style={{ fontFamily: 'var(--font-primary)', fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', borderBottom: 'none' }}>
                       {log.description}
                     </TableCell>
-                    <TableCell style={{ fontFamily: 'Inter', fontSize: 11 }}>{log.ip_address || '127.0.0.1'}</TableCell>
-                    <TableCell style={{ fontFamily: 'Inter', fontSize: 11, color: 'var(--text-muted)' }}>
+                    <TableCell style={{ fontFamily: 'var(--font-primary)', fontSize: 11, fontWeight: 800, color: '#10b981', borderBottom: 'none' }}>{log.ip_address || '127.0.0.1'}</TableCell>
+                    <TableCell style={{ fontFamily: 'var(--font-primary)', fontSize: 11, fontWeight: 800, color: 'var(--text-muted)', borderBottom: 'none' }}>
                       {new Date(log.created_at).toLocaleString()}
                     </TableCell>
                   </TableRow>
                 ))}
                 {auditLogs.length === 0 && (
                   <TableRow>
-                    <TableCell colSpan={6} align="center" style={{ padding: '40px 0', color: 'var(--text-muted)' }}>
-                      No active audit entries found. Try creating a client or running simulations!
+                    <TableCell colSpan={6} align="center" style={{ padding: '60px 0', color: 'var(--text-muted)', fontWeight: 800, letterSpacing: 2, borderBottom: 'none' }}>
+                      NO EVENT TRIGGERS LOGGED IN DB
                     </TableCell>
                   </TableRow>
                 )}
               </TableBody>
             </Table>
           </TableContainer>
-        </CardContent>
-      </Card>
+        </Box>
+      </Box>
     </Box>
   );
 };

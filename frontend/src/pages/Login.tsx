@@ -57,111 +57,94 @@ const Login: React.FC = () => {
       overflow="hidden"
       p={3}
     >
-      {/* Background ambient glows */}
-      <div className="glowing-bg" style={{ top: '20%', left: '20%' }} />
-      <div className="glowing-bg" style={{ bottom: '20%', right: '20%' }} />
-
-      <Paper
-        className="glass-panel animate-fade-in"
-        style={{
-          width: '100%',
-          maxWidth: 440,
-          padding: '40px 32px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          border: '1px solid var(--border-glass)',
-          position: 'relative',
-          zIndex: 10
-        }}
-      >
-        <Typography variant="h5" fontWeight={800} color="var(--primary-color)" style={{ letterSpacing: -0.8 }}>
-          AIMCF Portal
+      <Box className="bento-tile" style={{ width: '100%', maxWidth: 500, padding: 40, border: '1px solid var(--border-glass)', backgroundColor: 'var(--bg-secondary)' }}>
+        <Typography variant="h3" fontWeight={900} className="neon-text" mb={1} align="center" style={{ letterSpacing: -1 }}>
+          SECURE GATEWAY
         </Typography>
-        <Typography variant="body2" color="var(--text-secondary)" mb={4}>
-          Management Consulting Platform
+        <Typography variant="overline" color="var(--text-secondary)" mb={4} align="center" display="block" style={{ letterSpacing: 3, fontWeight: 800 }}>
+          SYSTEM AUTHENTICATION REQUIRED
         </Typography>
 
         {error && (
-          <Alert severity="error" style={{ width: '100%', marginBottom: 20, borderRadius: 8 }}>
+          <Alert severity="error" style={{ width: '100%', marginBottom: 20, borderRadius: 8, backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
             {error}
           </Alert>
         )}
 
-        <Box component="form" onSubmit={formik.handleSubmit} width="100%" display="flex" flexDirection="column" gap={2.5}>
+        <Box component="form" onSubmit={formik.handleSubmit} width="100%" display="flex" flexDirection="column" gap={3}>
           <TextField
             fullWidth
             id="username"
             name="username"
-            label="Username"
-            variant="outlined"
-            size="small"
+            placeholder="ENTER IDENTITY"
+            variant="standard"
             value={formik.values.username}
             onChange={formik.handleChange}
             error={formik.touched.username && Boolean(formik.errors.username)}
             helperText={formik.touched.username && formik.errors.username}
             InputProps={{
-              startAdornment: <AccountCircleOutlined color="action" style={{ marginRight: 8, fontSize: 20 }} />,
-              style: { fontFamily: 'Inter' }
+              startAdornment: <AccountCircleOutlined color="action" style={{ marginRight: 12, fontSize: 24, color: '#3b82f6' }} />,
+              style: { fontFamily: 'var(--font-primary)', fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', paddingBottom: 8 }
             }}
           />
           <TextField
             fullWidth
             id="password"
             name="password"
-            label="Password"
+            placeholder="ENTER PASSCODE"
             type="password"
-            variant="outlined"
-            size="small"
+            variant="standard"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
             InputProps={{
-              startAdornment: <LockOutlined color="action" style={{ marginRight: 8, fontSize: 20 }} />,
-              style: { fontFamily: 'Inter' }
+              startAdornment: <LockOutlined color="action" style={{ marginRight: 12, fontSize: 24, color: '#3b82f6' }} />,
+              style: { fontFamily: 'var(--font-primary)', fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', paddingBottom: 8 }
             }}
           />
 
           <Button
             type="submit"
             variant="contained"
-            color="primary"
             fullWidth
             disabled={loading}
             style={{
-              padding: '10px 0',
-              fontWeight: 700,
+              marginTop: 16,
+              padding: '16px 0',
+              fontWeight: 900,
+              fontSize: 16,
+              letterSpacing: 2,
               background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
-              boxShadow: '0 4px 16px 0 rgba(59,130,246,0.3)',
-              borderRadius: 8
+              boxShadow: '0 0 20px rgba(59,130,246,0.4)',
+              borderRadius: 12
             }}
           >
-            {loading ? 'Authenticating...' : 'Sign In'}
+            {loading ? 'UPLINKING...' : 'INITIALIZE LINK'}
           </Button>
         </Box>
 
-        <Typography variant="body2" color="var(--text-secondary)" mt={3}>
-          Don't have an account?{' '}
-          <Link to="/register" style={{ color: 'var(--primary-color)', textDecoration: 'none', fontWeight: 600 }}>
-            Register here
+        <Typography variant="body2" color="var(--text-secondary)" mt={4} align="center">
+          NO ACCESS CLEARANCE?{' '}
+          <Link to="/register" style={{ color: '#3b82f6', textDecoration: 'none', fontWeight: 800 }}>
+            REQUEST PROVISIONING
           </Link>
         </Typography>
 
         {/* Demo Accounts Panel */}
-        <Box width="100%" mt={4} pt={3} style={{ borderTop: '1px solid var(--border-glass)' }}>
-          <Typography variant="caption" color="var(--text-muted)" fontWeight={700} display="block" mb={1.5} style={{ textTransform: 'uppercase' }}>
-            Quick Demo Logins (Click to Populate)
+        <Box width="100%" mt={5} pt={4} style={{ borderTop: '1px solid var(--border-glass)' }}>
+          <Typography variant="caption" color="var(--text-muted)" fontWeight={800} display="block" mb={2} align="center" style={{ letterSpacing: 2 }}>
+            OVERRIDE CODES (DEMO)
           </Typography>
-          <Grid container spacing={1}>
+          <Grid container spacing={1.5}>
             {demoAccounts.map((account) => (
               <Grid item xs={4} key={account.role}>
-                <Card style={{ backgroundColor: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-glass)' }}>
+                <Card style={{ backgroundColor: 'var(--bg-glass)', border: '1px solid var(--border-glass)', borderRadius: 8 }}>
                   <CardActionArea 
                     onClick={() => triggerQuickLogin(account.user, account.pass)}
-                    style={{ padding: 8, textAlign: 'center' }}
+                    style={{ padding: 12, textAlign: 'center' }}
                   >
-                    <Typography variant="caption" fontWeight={700} style={{ color: account.color, fontSize: 10 }}>
+                    <Typography variant="caption" fontWeight={900} style={{ color: account.color, fontSize: 11, letterSpacing: 1 }}>
                       {account.role}
                     </Typography>
                   </CardActionArea>
@@ -170,7 +153,7 @@ const Login: React.FC = () => {
             ))}
           </Grid>
         </Box>
-      </Paper>
+      </Box>
     </Box>
   );
 };
